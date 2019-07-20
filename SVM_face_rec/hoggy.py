@@ -3,6 +3,8 @@
 Created on Thu Jul 18 08:34:24 2019
 
 @author: aiss
+
+extract HoG features
 """
 
 import cv2
@@ -107,19 +109,7 @@ def HoG(img):
         tmp=float(vec[i])
         tmp=np.array([tmp])
         vector.append(tmp)
-    '''
-    print(vector.shape)
-    print(type(vector))
-    print(type(vector[55]))
-    print(vector.dtype)
-    print(vector[55])
-    '''
     vector=np.array(vector,dtype='float32')
-    '''
-    print(vector.shape)
-    print(type(vector))
-    print(type(vector[3]))
-    '''
     return vector
 #print (np.array(vector).shape)
 #plt.imshow(image, cmap=plt.cm.gray)

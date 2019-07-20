@@ -2,8 +2,9 @@ import cv2
 import numpy as np
 from tools import load_img,get_HoG
 from sklearn import metrics
+import glob
 
-
+#test function can only test one image at a time
 def validate(dir_name,if_blur=False):
     img_list=[]
     HoG_list=[]
@@ -27,9 +28,20 @@ def validate(dir_name,if_blur=False):
     print("on validation set,the accuracy is ",metrics.accuracy_score(labels,pred))
 
 
-'''
-def evaluate(dir_name)
-'''   
-
+def test(img_dir):
+    img_list=[]
+    for i in img_dir:
+        img_list.append(cv2.imread(i))
+    HoG_list=[]
+    get_HoG(img_list,HoG_list)
+    svm=cv2.ml.SVM_load('first_train.xml')
+    _,pred=svm.predict(np.array(HoG_list))
+    for i in pred:
+        if(i==1):
+            print('True')
+        else:
+            print('False')
 #validate('train_data/validation')
-validate('train_data/original_test',if_blur=True)
+
+file_name=glob.glob("train_data/test/n/*.jpg")
+test(file_name)
