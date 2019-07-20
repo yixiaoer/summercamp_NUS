@@ -14,7 +14,7 @@ import math
 
 
 class Hog_descriptor():
-    def __init__(self, img, cell_size=8, bin_size=8):# cell_size=16, bin_size=8
+    def __init__(self, img, cell_size=8, bin_size=8):# cell_size=8, bin_size=8
         self.img = img
         self.img = np.sqrt(img / np.max(img))
         self.img = img * 255
@@ -104,18 +104,11 @@ def HoG(img):
     hog = Hog_descriptor(img)
     vec = hog.extract()
     vector=[]
-   # print(np.array(vec[3]).dtype)
     for i in range(len(vec)):
         tmp=float(vec[i])
         tmp=np.array([tmp])
         vector.append(tmp)
     vector=np.array(vector,dtype='float32')
     return vector
-#print (np.array(vector).shape)
 #plt.imshow(image, cmap=plt.cm.gray)
 #plt.show()
-'''
-img = cv2.imread('C:/Users/lenovo/Desktop/li1.jpg', cv2.IMREAD_GRAYSCALE)
-img = cv2.resize(img, (128,128),interpolation=cv2.INTER_AREA)
-print(HoG(img))
-'''

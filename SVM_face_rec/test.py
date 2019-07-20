@@ -27,7 +27,7 @@ def validate(dir_name,if_blur=False):
     pred=[int(i) for i in pred]
     print("on validation set,the accuracy is ",metrics.accuracy_score(labels,pred))
 
-
+#output a list that contains the predict result of the input image
 def test(img_dir):
     img_list=[]
     for i in img_dir:
@@ -36,12 +36,17 @@ def test(img_dir):
     get_HoG(img_list,HoG_list)
     svm=cv2.ml.SVM_load('first_train.xml')
     _,pred=svm.predict(np.array(HoG_list))
+    res=[]
     for i in pred:
         if(i==1):
+            res.append('True')
             print('True')
         else:
+            res.append('False')
             print('False')
-#validate('train_data/validation')
+    return res
 
 file_name=glob.glob("train_data/test/n/*.jpg")
+
+#file_name=glob.glob('*.jpg')
 test(file_name)
