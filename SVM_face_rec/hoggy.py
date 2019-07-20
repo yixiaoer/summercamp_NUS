@@ -12,7 +12,7 @@ import math
 
 
 class Hog_descriptor():
-    def __init__(self, img, cell_size=16, bin_size=8):
+    def __init__(self, img, cell_size=8, bin_size=8):# cell_size=16, bin_size=8
         self.img = img
         self.img = np.sqrt(img / np.max(img))
         self.img = img * 255
@@ -58,8 +58,8 @@ class Hog_descriptor():
     def global_gradient(self):
         SCALE=1
         DELTA=0
-        Sobelx = cv2.Sobel(self.img, cv2.CV_64F, 1, 0, ksize=5, scale=SCALE,delta=DELTA)
-        Sobely = cv2.Sobel(self.img, cv2.CV_64F, 0, 1, ksize=5, scale=SCALE,delta=DELTA)
+        Sobelx = cv2.Sobel(self.img, cv2.CV_64F, 1, 0, ksize=5, scale=SCALE,delta=DELTA)#ksize=5
+        Sobely = cv2.Sobel(self.img, cv2.CV_64F, 0, 1, ksize=5, scale=SCALE,delta=DELTA)#ksize=5
         Sobelx=cv2.blur(Sobelx,(1,1))
         Sobely=cv2.blur(Sobely,(1,1))
         gra_magnitude = cv2.addWeighted(Sobelx, 0.5, Sobely, 0.5, 0)

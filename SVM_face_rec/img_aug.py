@@ -11,10 +11,10 @@ def create_img_data(input_file,output_file):
     load_img(input_file,img_list)
     img_aug=seq.augment_images(img_list)
     for i in range(len(img_aug)):
-        cv2.imwrite(output_file+'/i_imgaug_'+str(i)+'.jpg',img_aug[i])
+        cv2.imwrite(output_file+'/ii_imgaug_'+str(i)+'.jpg',img_aug[i])
     
 
 
-input_file='train_data/original_train/p'
-output_file='train_data/train/p'
+input_file='train_data/train/n'
+output_file='train_data/train/n'
 create_img_data(input_file,output_file)

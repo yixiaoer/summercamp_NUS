@@ -28,14 +28,6 @@ def get_HoG(img_list,HoG_list):#这里直接将图像尺寸转换成64*128，或
             img_list[i]=cv2.resize(img_list[i],stan_shape[:2],interpolation=cv2.INTER_AREA)
         gray=cv2.cvtColor(img_list[i],cv2.COLOR_BGR2GRAY)
         HoG_list.append(hog.compute(gray))
-        
-        
-        tmp=hog.compute(gray)
-        print(tmp.shape)
-        print(type(tmp))
-        print(type(tmp[55]))
-        print(tmp.dtype)
-        print(tmp[55])
-        '''
+'''
     return
     

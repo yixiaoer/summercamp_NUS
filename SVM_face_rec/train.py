@@ -52,11 +52,12 @@ def train(o_dir_name):
     #train SVM 考虑基于Hard Example对分类器二次训练https://www.xuebuyuan.com/2083806.html
     best_c=0
     best_acc=0
-    for C in [0.01,0.1,1,1.5,2.5,5,10,25,50,100]:
+    for C in [0.01,0.02,0.03,0.04,0.05,0.06,0.07,0.08,0.09,0.1,0.5,1,1.5,2,2.5]:
         svm=cv2.ml.SVM_create()
         svm.setC(C)
         svm.setType(cv2.ml.SVM_C_SVC)
-        svm.setKernel(cv2.ml.SVM_LINEAR)
+        #svm.setKernel(cv2.ml.SVM_LINEAR)
+        svm.setKernel(cv2.ml.SVM_LINEAR)#cv2.ml.SVM_LINEAR
         svm.train(np.array(HoG_list),cv2.ml.ROW_SAMPLE,np.array(labels))
         _,cur_acc=validate(svm,o_dir_name)
         if(cur_acc>best_acc):
