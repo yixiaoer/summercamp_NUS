@@ -32,4 +32,4 @@ def evaluate(dir_name)
 '''   
 
 #validate('train_data/validation')
-validate('train_data/test',if_blur=True)
+validate('train_data/original_test',if_blur=True)

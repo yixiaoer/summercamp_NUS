@@ -3,10 +3,11 @@ import numpy as np
 from tools import load_img,get_HoG
 from sklearn import metrics
 
-def validate(svm,dir_name):
+def trans_validation(dir_name):
+    #validation
     img_list=[]
-    HoG_list=[]
-    labels=[]
+    global HoG_list
+    global labels
     #load positive validation samples
     dir_name=dir_name+'/validation'
     #dir_name='train_data/validation'
@@ -21,8 +22,12 @@ def validate(svm,dir_name):
     #get HoG features
     HoG_list=[]
     get_HoG(img_list, HoG_list)
+
+def validate(svm,dir_name):
     #SVM
     #svm=cv2.ml.SVM_load('first_train.xml')
+    global HoG_list
+    global labels
     _,pred=svm.predict(np.array(HoG_list))
     pred=[int(i) for i in pred]
     cur_acc=metrics.accuracy_score(labels,pred)
@@ -43,6 +48,7 @@ def train(o_dir_name):
     for i in range(len(img_list)-tmp):
         labels.append(-1)
     #get HoG feature list
+    print('extracting HoG feature')
     HoG_list=[]
     get_HoG(img_list, HoG_list)
     #info print
@@ -52,7 +58,8 @@ def train(o_dir_name):
     #train SVM 考虑基于Hard Example对分类器二次训练https://www.xuebuyuan.com/2083806.html
     best_c=0
     best_acc=0
-    for C in [0.01,0.02,0.03,0.04,0.05,0.06,0.07,0.08,0.09,0.1,0.5,1,1.5,2,2.5]:
+    C=0.005
+    while(C<0.3):#0.3
         svm=cv2.ml.SVM_create()
         svm.setC(C)
         svm.setType(cv2.ml.SVM_C_SVC)
@@ -63,6 +70,7 @@ def train(o_dir_name):
         if(cur_acc>best_acc):
             best_c=C
             best_acc=cur_acc
+        C+=0.005
     svm=cv2.ml.SVM_create()
     svm.setC(best_c)
     svm.setType(cv2.ml.SVM_C_SVC)
@@ -72,6 +80,7 @@ def train(o_dir_name):
     print('svm data has been saved')
 
 
-
-
+HoG_list=[]
+labels=[]
+trans_validation('train_data')
 train("train_data")
